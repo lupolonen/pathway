@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Pathway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div id="root"></div>
+    <script type="text/babel">
+        function CareerPathway() {
+            const [selectedLevel, setSelectedLevel] = React.useState(null);
+            const careerData = [
+                { level: "Entry-Level", color: "bg-blue-100", roles: [ { name: "Monitor", assessment: "Individual Assessment", nextStep: "Learning Assistant" }, { name: "Intern", assessment: "Individual Assessment", nextStep: "Learning Assistant" } ] },
+                { level: "Support Roles", color: "bg-blue-200", roles: [ { name: "Learning Assistant", assessment: "Individual Assessment", nextStep: "Senior Assistant" }, { name: "Senior Assistant", assessment: "Individual Assessment", nextStep: "Associate Educator" } ] },
+                { level: "Early Career Educators", color: "bg-blue-300", roles: [ { name: "Associate Educator", assessment: "Educator Appraisal", nextStep: "Specialist Educator" }, { name: "Specialist Educator", assessment: "Educator Appraisal", nextStep: "Master Educator" } ] },
+                { level: "Experienced Educators", color: "bg-blue-400", roles: [ { name: "Master Educator", assessment: "Individual Assessment", nextStep: "Inspirational Educator, Dean of Students, Coordinator" } ] },
+                { level: "Advanced Educators", color: "bg-blue-500", roles: [ { name: "Inspirational Educator", assessment: "GPS (Gestão de Performance SEB for Leaders)", nextStep: "Distinguished Educator" }, { name: "Distinguished Educator", nextStep: "N/A" } ] },
+                { level: "Administrative Leadership", color: "bg-blue-600", roles: [ { name: "Division Principal", nextStep: "Head of School" }, { name: "Head of School", nextStep: "N/A" } ] }
+            ];
+            return (
+                <div className="p-6 space-y-6">
+                    <h1 className="text-2xl font-bold">Career Pathway</h1>
+                    {careerData.map((level, index) => (
+                        <div key={index} className={`p-4 ${level.color} rounded-xl shadow-md cursor-pointer`} onClick={() => setSelectedLevel(selectedLevel === index ? null : index)}>
+                            <h2 className="text-xl font-semibold mb-2">{level.level}</h2>
+                            {selectedLevel === index && (
+                                <div className="space-y-3">
+                                    {level.roles.map((role, idx) => (
+                                        <div key={idx} className="flex justify-between items-center bg-white p-3 rounded-lg shadow">
+                                            <div>
+                                                <p className="font-medium text-lg">{role.name}</p>
+                                                {role.assessment && (<p className="text-sm text-gray-600">Assessment: {role.assessment}</p>)}
+                                            </div>
+                                            {role.nextStep !== "N/A" ? (<button className="bg-blue-600 text-white px-4 py-2 rounded">Next: {role.nextStep}</button>) : (<p className="text-sm text-gray-500">Final Position</p>)}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+        ReactDOM.render(<CareerPathway />, document.getElementById('root'));
+    </script>
+</body>
+</html>
