@@ -2,4 +2,4 @@ PyPDF2
 python-dotenv
 requests
 streamlit
-openai
+openai>=1.3

@@ -3,6 +3,7 @@
 ```bash
 pip install -r requirements.txt
 ```
+This project requires `openai>=1.3`.
 
 2. Place the mapping PDFs (e.g., `MAP Growth Grades 2-5 to Khan Academy.pdf`) in the same directory as the script.
 
