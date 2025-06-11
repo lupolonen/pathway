@@ -27,8 +27,8 @@ The agent will read the JSON file and print the generated plan without further p
 objects. When a list is provided, the agent will generate a separate plan for each student in
 the order they appear in the file.
 
-The autonomous agent can also enrich the plan with web search snippets. Create a
-`.env` file containing your Google API credentials:
+The autonomous agent can also enrich the plan with web search snippets. Copy
+`.env.example` to `.env` and add your Google API credentials:
 
 ```bash
 GOOGLE_API_KEY=your-key

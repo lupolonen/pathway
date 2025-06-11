@@ -95,6 +95,7 @@ venv.bak/
 .env
 .env
 .env.*
+!.env.example
 
 # mypy
 .mypy_cache/
