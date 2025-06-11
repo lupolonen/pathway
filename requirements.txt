@@ -1,3 +1,5 @@
 PyPDF2
 python-dotenv
 requests
+streamlit
+openai

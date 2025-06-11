@@ -17,9 +17,7 @@ from agents import Agent, Runner
 from nwea_goal_navigator import StudentData, generate_plan
 
 load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY=AIzaSyBVFCRr9zEMEYaCgwJLMdD--IeH6RWxEko
-CX=YOUR_GOOGLE_CSE_ID
-")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 CX = os.getenv("CX")
 
 def fetch_google_snippets(query: str) -> str:
@@ -43,20 +41,33 @@ async def plan_from_file(_: str) -> str:
     if not DATA_FILE.exists():
         return f"Data file {DATA_FILE} not found."
     data = json.loads(DATA_FILE.read_text())
-    student = StudentData(
-        name=data.get("name", "Unnamed"),
-        grade=data.get("grade", ""),
-        rit_score=int(data.get("rit_score", 0)),
-        goal_areas=data.get("goal_areas", ""),
-        instructional_areas=data.get("instructional_areas", ""),
-    )
-    standard = data.get("standard", "Common Core (US)")
-    query = f"{student.grade} grade {student.goal_areas}".strip()
-    snippets = fetch_google_snippets(query)
-    plan = generate_plan(student, standard)
-    if snippets:
-        plan += "\n\n🔍 Search Snippets\n" + snippets
-    return plan
+
+    # ``student_data.json`` can contain either a single object or a list of
+    # objects. Normalize to a list so we can iterate over multiple students.
+    if isinstance(data, dict):
+        records = [data]
+    else:
+        records = data
+
+    plans = []
+    for entry in records:
+        student = StudentData(
+            name=entry.get("name", "Unnamed"),
+            grade=entry.get("grade", ""),
+            rit_score=int(entry.get("rit_score", 0)),
+            goal_areas=entry.get("goal_areas", ""),
+            instructional_areas=entry.get("instructional_areas", ""),
+        )
+        standard = entry.get("standard", "Common Core (US)")
+        query = f"{student.grade} grade {student.goal_areas}".strip()
+        snippets = fetch_google_snippets(query)
+        plan = generate_plan(student, standard)
+        if snippets:
+            plan += "\n\n🔍 Search Snippets\n" + snippets
+        plans.append(plan)
+
+    # Join multiple plans with a separator for clarity
+    return "\n\n".join(plans)
 
 planner_agent = Agent(
     name="autonomous_planner",
