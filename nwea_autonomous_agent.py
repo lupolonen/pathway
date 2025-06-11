@@ -17,7 +17,9 @@ from agents import Agent, Runner
 from nwea_goal_navigator import StudentData, generate_plan
 
 load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY=AIzaSyBVFCRr9zEMEYaCgwJLMdD--IeH6RWxEko
+CX=YOUR_GOOGLE_CSE_ID
+")
 CX = os.getenv("CX")
 
 def fetch_google_snippets(query: str) -> str:
