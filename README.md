@@ -56,3 +56,8 @@ enable the **Code Interpreter** tool. Upload the repository files and specify
 ``nwea_goal_agent.py`` (or ``nwea_autonomous_agent.py`` for unattended runs) as
 the entry point. When you invoke the assistant it will execute the script and
 return the generated learning plan.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
