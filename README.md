@@ -4,7 +4,6 @@ This repository provides a simple example project.
 
 ## Files
 
-- `career_pathway.html` - demonstration of a career pathway user interface using React and Tailwind CSS.
 - `nwea_goal_navigator.py` - command line tool implementing the **NWEA Goal Navigator** agent. The script guides teachers through entering MAP Growth data and generates a learning plan template.
 - `agents.py` - minimal helper module providing `Agent` and `Runner` classes for agent-style workflows.
 - `nwea_goal_agent.py` - example showing how to build the NWEA agent using the `Agent`/`Runner` interface.
