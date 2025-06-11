@@ -93,6 +93,7 @@ celerybeat.pid
 env.bak/
 venv.bak/
 .env
+.env
 .env.*
 
 # mypy

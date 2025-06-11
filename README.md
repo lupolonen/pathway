@@ -42,6 +42,17 @@ python3 nwea_autonomous_agent.py
 
 The agent will read the JSON file and print the generated plan without further prompts.
 
+The autonomous agent can also enrich the plan with web search snippets. Create a
+`.env` file containing your Google API credentials:
+
+```bash
+GOOGLE_API_KEY=your-key
+CX=your-search-engine-id
+```
+
+These values are loaded at runtime and used to query Google. The returned
+snippets are appended to the learning plan.
+
 ### Agent Example
 
 You can also run the simplified agent version:
