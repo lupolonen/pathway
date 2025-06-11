@@ -11,6 +11,10 @@ This repository provides a simple example project.
 - `nwea_autonomous_agent.py` - reads `student_data.json` and generates a plan without interactive prompts.
 - `requirements.txt` - Python dependencies.
 
+## Career Pathway Demo
+
+To view the sample career pathway interface, open `career_pathway.html` in any web browser. The file loads React and Tailwind CSS from public CDNs, so an internet connection is required when you first open the page.
+
 ## Usage
 
 1. Ensure Python 3 is installed and install the required packages:
