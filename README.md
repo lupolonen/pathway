@@ -1,21 +1,3 @@
-# Pathway Repository
-
-This repository provides a simple example project.
-
-## Files
-
-- `nwea_goal_navigator.py` - command line tool implementing the **NWEA Goal Navigator** agent. The script guides teachers through entering MAP Growth data and generates a learning plan template.
-- `agents.py` - minimal helper module providing `Agent` and `Runner` classes for agent-style workflows.
-- `nwea_goal_agent.py` - example showing how to build the NWEA agent using the `Agent`/`Runner` interface.
-- `nwea_autonomous_agent.py` - reads `student_data.json` and generates a plan without interactive prompts.
-- `requirements.txt` - Python dependencies.
-
-## Career Pathway Demo
-
-To view the sample career pathway interface, open `career_pathway.html` in any web browser. The file loads React and Tailwind CSS from public CDNs, so an internet connection is required when you first open the page.
-
-## Usage
-
 1. Ensure Python 3 is installed and install the required packages:
 
 ```bash
@@ -74,7 +56,21 @@ For a browser-based experience you can launch the Streamlit app:
 streamlit run nwea_streamlit_app.py
 ```
 
-The interface lets you manually enter a student's data or upload a `student_data.json` file. When the file contains multiple student objects, the app displays a plan for each one.
+The interface lets you manually enter a student's data or upload a `student_data.json` file. When the file contains multiple student objects, the app displays a plan for each one. If `OPENAI_API_KEY` is set you can enable the sidebar option **Use OpenAI Assistant** to generate plans through your assistant instead of the local model.
+
+### OpenAI Assistant API
+
+If you have an OpenAI API key you can delegate plan generation to an assistant. Set `OPENAI_API_KEY` in your environment and run:
+
+```bash
+python3 map_assistant_api.py
+```
+
+The script reads `student_data.json` (single object or list) and prints the plan returned by the assistant.
+
+The implementation uses OpenAI's Assistants API. If you previously encountered
+an `APIRemovedInV1` error, update to this version and ensure your `openai`
+package is at least `1.3`.
 
 ## Deploying on OpenAI
 
@@ -87,4 +83,3 @@ return the generated learning plan.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
