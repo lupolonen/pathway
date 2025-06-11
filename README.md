@@ -66,6 +66,16 @@ python3 nwea_goal_agent.py
 
 This script uses the `Agent` and `Runner` classes to orchestrate the workflow, mimicking the style of OpenAI's agent platform.
 
+### Streamlit Interface
+
+For a browser-based experience you can launch the Streamlit app:
+
+```bash
+streamlit run nwea_streamlit_app.py
+```
+
+The interface lets you manually enter a student's data or upload a `student_data.json` file. When the file contains multiple student objects, the app displays a plan for each one.
+
 ## Deploying on OpenAI
 
 To run this code on the OpenAI Assistants platform, create a new assistant and
