@@ -40,7 +40,10 @@ For a fully automated run place your student information in ``student_data.json`
 python3 nwea_autonomous_agent.py
 ```
 
-The agent will read the JSON file and print the generated plan without further prompts.
+The agent will read the JSON file and print the generated plan without further prompts. The
+``student_data.json`` file may contain either a single student object or a list of student
+objects. When a list is provided, the agent will generate a separate plan for each student in
+the order they appear in the file.
 
 The autonomous agent can also enrich the plan with web search snippets. Create a
 `.env` file containing your Google API credentials:
@@ -62,6 +65,16 @@ python3 nwea_goal_agent.py
 ```
 
 This script uses the `Agent` and `Runner` classes to orchestrate the workflow, mimicking the style of OpenAI's agent platform.
+
+### Streamlit Interface
+
+For a browser-based experience you can launch the Streamlit app:
+
+```bash
+streamlit run nwea_streamlit_app.py
+```
+
+The interface lets you manually enter a student's data or upload a `student_data.json` file. When the file contains multiple student objects, the app displays a plan for each one.
 
 ## Deploying on OpenAI
 
