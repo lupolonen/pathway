@@ -76,6 +76,16 @@ streamlit run nwea_streamlit_app.py
 
 The interface lets you manually enter a student's data or upload a `student_data.json` file. When the file contains multiple student objects, the app displays a plan for each one.
 
+### OpenAI Assistant API
+
+If you have an OpenAI API key you can delegate plan generation to an assistant. Set `OPENAI_API_KEY` in your environment and run:
+
+```bash
+python3 map_assistant_api.py
+```
+
+The script reads `student_data.json` (single object or list) and prints the plan returned by the assistant.
+
 ## Deploying on OpenAI
 
 To run this code on the OpenAI Assistants platform, create a new assistant and
