@@ -7,10 +7,33 @@ fully automated mode.
 
 import asyncio
 import json
+import os
 from pathlib import Path
+
+import requests
+from dotenv import load_dotenv
 
 from agents import Agent, Runner
 from nwea_goal_navigator import StudentData, generate_plan
+
+load_dotenv()
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+CX = os.getenv("CX")
+
+def fetch_google_snippets(query: str) -> str:
+    """Return top snippets from Google Custom Search."""
+    if not GOOGLE_API_KEY or not CX:
+        return ""
+    url = "https://www.googleapis.com/customsearch/v1"
+    params = {"key": GOOGLE_API_KEY, "cx": CX, "q": query}
+    try:
+        resp = requests.get(url, params=params, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+        snippets = [item.get("snippet", "") for item in data.get("items", [])]
+        return "\n".join(snippets[:3])
+    except Exception as exc:
+        return f"Error retrieving snippets: {exc}"
 
 DATA_FILE = Path("student_data.json")
 
@@ -26,7 +49,12 @@ async def plan_from_file(_: str) -> str:
         instructional_areas=data.get("instructional_areas", ""),
     )
     standard = data.get("standard", "Common Core (US)")
-    return generate_plan(student, standard)
+    query = f"{student.grade} grade {student.goal_areas}".strip()
+    snippets = fetch_google_snippets(query)
+    plan = generate_plan(student, standard)
+    if snippets:
+        plan += "\n\n🔍 Search Snippets\n" + snippets
+    return plan
 
 planner_agent = Agent(
     name="autonomous_planner",
