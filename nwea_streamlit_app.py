@@ -12,7 +12,7 @@ from map_assistant_api import call_map_assistant
 load_dotenv()
 
 DATA_FILE = Path("student_data.json")
-USE_ASSISTANT_DEFAULT = bool(os.getenv("OPENAI_API_KEY"))
+USE_ASSISTANT_DEFAULT = bool(os.getenv("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"))
 
 
 def build_plan(entry: dict) -> str:
