@@ -1,15 +1,18 @@
 import json
 from pathlib import Path
 
+import os
 import streamlit as st
 from dotenv import load_dotenv
 
 from nwea_goal_navigator import StudentData, generate_plan
 from nwea_autonomous_agent import fetch_google_snippets
+from map_assistant_api import call_map_assistant
 
 load_dotenv()
 
 DATA_FILE = Path("student_data.json")
+USE_ASSISTANT_DEFAULT = bool(os.getenv("OPENAI_API_KEY"))
 
 
 def build_plan(entry: dict) -> str:
@@ -30,10 +33,20 @@ def build_plan(entry: dict) -> str:
     return plan
 
 
+def build_plan_with_assistant(entry: dict) -> str:
+    """Delegate plan generation to the OpenAI assistant."""
+    try:
+        return call_map_assistant(entry)
+    except Exception as exc:
+        return f"Assistant error: {exc}"
+
+
 def main() -> None:
     st.title("NWEA Goal Navigator")
-
     mode = st.sidebar.selectbox("Data Source", ("Manual Entry", "From JSON File"))
+    use_assistant = st.sidebar.checkbox(
+        "Use OpenAI Assistant", value=USE_ASSISTANT_DEFAULT
+    )
 
     if mode == "Manual Entry":
         name = st.text_input("Student Name")
@@ -53,7 +66,10 @@ def main() -> None:
                 "instructional_areas": instructional_areas,
                 "standard": standard,
             }
-            st.markdown(build_plan(entry))
+            if use_assistant:
+                st.markdown(build_plan_with_assistant(entry))
+            else:
+                st.markdown(build_plan(entry))
     else:
         file = st.file_uploader("Upload student_data.json", type="json")
         if file is None and DATA_FILE.exists():
@@ -70,7 +86,10 @@ def main() -> None:
                 if st.button("Generate Plans"):
                     for idx, entry in enumerate(records, start=1):
                         st.subheader(f"Plan {idx}")
-                        st.markdown(build_plan(entry))
+                        if use_assistant:
+                            st.markdown(build_plan_with_assistant(entry))
+                        else:
+                            st.markdown(build_plan(entry))
             except json.JSONDecodeError as exc:
                 st.error(f"Invalid JSON: {exc}")
 
