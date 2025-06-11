@@ -4,12 +4,12 @@ This repository provides a simple example project.
 
 ## Files
 
-- `career_pathway.html` - demonstration of a career pathway user interface using React and Tailwind CSS.
 - `nwea_goal_navigator.py` - command line tool implementing the **NWEA Goal Navigator** agent. The script guides teachers through entering MAP Growth data and generates a learning plan template.
 - `agents.py` - minimal helper module providing `Agent` and `Runner` classes for agent-style workflows.
 - `nwea_goal_agent.py` - example showing how to build the NWEA agent using the `Agent`/`Runner` interface.
 - `nwea_autonomous_agent.py` - reads `student_data.json` and generates a plan without interactive prompts.
 - `requirements.txt` - Python dependencies.
+- `student_data.json` - sample data used by the autonomous example.
 
 ## Usage
 
@@ -56,3 +56,8 @@ enable the **Code Interpreter** tool. Upload the repository files and specify
 ``nwea_goal_agent.py`` (or ``nwea_autonomous_agent.py`` for unattended runs) as
 the entry point. When you invoke the assistant it will execute the script and
 return the generated learning plan.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
